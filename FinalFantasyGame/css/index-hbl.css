@@ -1,0 +1,263 @@
+/*初始化开始*/
+body, h1, h2, h3, h4, h5, h6, p, dl, dd, ul, ol, form, input, textarea, th, td, select {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+em, i {
+    font-style: normal;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    border: none;
+    vertical-align: top;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+input, textarea, button {
+    outline: none;
+    border: 0;
+}
+
+textarea {
+    resize: none;
+    overflow: auto;
+}
+body {
+    background-color: #efeeea;
+}
+.right {
+    float: right;
+}
+/*body {
+     fopxnt: 12 "微软雅黑";
+ }*/
+/*初始化结束*/
+/*进入官网图标开始*/
+.enter_itme {
+    width: 300px;
+    height: 75px;
+    position: fixed;
+    z-index: 99999;
+    top: 50px;
+}
+.enter_itme:hover img:last-child {
+    display: none;
+}
+.enter_itme a img {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+
+.right {
+    width: 310px;
+    height: 210px;
+    position: fixed;
+    top: 50px;
+    right: 80px;
+}
+
+.free li {
+    width: 155px;
+    height: 95px;
+    float: left;
+    overflow: hidden;
+    cursor: pointer;
+}
+.free li img {
+    width: 100%;
+}
+.free li:last-child {
+    width: 310px;
+    height: 44px;
+    margin-top: 60px;
+}
+
+/*进入官网图标结束*/
+/*z中间文字开始 */
+.bag_img {
+    width: 100%;
+    height: 1000px;
+    background: url("../img/moving_item_bg0925.jpg") no-repeat center center/100%;
+}
+.first_txt {
+    width: 100%;
+    text-align: center;
+    padding-top:260px;
+}
+.link {
+    height: 130px;
+}
+.link a {
+    width: 293px;
+    height: 88px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+.link .link_one img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.link .link_two img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.link .link_one:hover img:last-child{
+    display: none;
+}
+.link .link_two:hover img:last-child{
+    display: none;
+}
+.person img{
+    width: 100%;
+}
+.per_txt img {
+    margin-top: -55px;
+}
+.tit {
+    margin-top: 40px;
+}
+.tit img {
+    width: 50%;
+}
+/*z中间文字结束 */
+/*tab图片切换开始*/
+.swithchover {
+    width: 100%;
+    height: 750px;
+    position: relative;
+}
+.swithchover .tilte {
+    position: absolute;
+}
+.tilte img {
+    width: 70%;
+}
+.picture img{
+    width: 100%;
+    display: none;
+}
+.show_picture img{
+    display: block;
+}
+.picture_tit {
+    width: 100%;
+    height: 220px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.picture_tit img {
+    width: 400px;
+}
+.picture_tit li {
+    float: left;
+    width: 33%;
+    height: 100%;
+    position: relative;
+}
+.picture_tit a img {
+    width: 67px;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+}
+/*tab图片切换结束*/
+/*第二tab开始*/
+.swithchover .tlt_bar{
+    position: absolute;
+    top: 40px;
+    right: 0px;
+}
+.swithchover .tlt_bar img {
+    float: right;
+}
+.picture_btn {
+    height: 100px;
+}
+/*第二tab结束*/
+/*插图开始*/
+.bom img{
+    text-align: center;
+}
+.bottom img,.bottom_tit img {
+    width: 100%;
+}
+.bottom_tit img {
+    margin-top: -240px;
+}
+.bom_btn {
+    width: 325px;
+    margin: -50px auto;
+}
+.bom_btn  a {
+    display: inline-block;
+    width: 160px;
+    height: 101px;
+    position: relative;
+}
+.bom_btn  a img {
+    text-align: center;
+    width: 160px;
+}
+.bom_btn .bom_one_a img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.bom_btn .bom_two_a img {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.bom_btn .bom_one_a:hover img:last-child{
+    display: none;
+}
+.bom_btn .bom_two_a:hover img:last-child{
+    display: none;
+}
+
+.data_tit {
+    width: 354px;
+    margin: 100px auto;
+}
+.data_tit img{
+    width: 354px;
+}
+.books {
+    width: 1214px;
+    height: 210px;
+    margin: -100px auto;
+}
+.books ul {
+    width: 1214px;
+    height: 210px;
+    overflow: hidden;
+}
+.books li {
+    width: 308px;
+    float: left;
+}
+.books img {
+    width: 607px;
+}
+/*插图结束*/

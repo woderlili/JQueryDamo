@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="../css/base-yc1.css">
+    <link rel="stylesheet" type="text/css" href="../css/pvpguide.css">
+    <script>
+        window.onload = function () {
+            // 隐藏导航移入移出
+
+
+            var outer = document.getElementsByClassName('outer')[0];
+            var inner = document.getElementsByClassName('inner')[0];
+            var imgWidth = inner.offsetWidth;
+            var ol = document.getElementsByClassName('inner-ol')[0];
+            var olLiArr = ol.children;
+            var ul = document.getElementById('imgs');
+
+            for (var i = 0; i < olLiArr.length; i++) {
+                olLiArr[i].index = i;
+                olLiArr[i].onmouseover = function () {
+                    for (var j = 0; j < olLiArr.length; j++) {
+                        olLiArr[j].className = '';
+                    }
+                    this.className = 'current';
+                    var sss = imgWidth * this.index;
+                    animate(ul, -sss);
+                    console.log(this.index);
+                    console.log(-sss);
+                }
+            }
+            function animate(element, target) {
+                clearInterval(element.timer);
+                element.timer = setInterval(function () {
+                    var step = target > element.offsetLeft ? 10 : -10;
+                    element.style.left = element.offsetLeft + step + 'px';
+                    if (Math.abs(target - element.offsetLeft) <= Math.abs(step)) {// 负值的时候也要一步一步走
+                        element.style.left = target + 'px';
+                        clearInterval(element.timer);
+                    }
+                }, 5);
+            }
+
+
+            // 需求1：鼠标点击右侧按钮，当前图片显示下一张;
+            // 需求2：鼠标点击左侧按钮，当前图片显示上一张;(逻辑相反)
+
+            // 需求1：鼠标点击右侧按钮，当前图片显示下一张;
+            // 思路：原来有索引值可以移动ul，现在没有了，自定义变量当做索引值;
+            var num = 0;
+            // 获取相关元素;
+            var left = document.getElementById('left');
+            var right = document.getElementById('right');
+            var ul = document.getElementById('imgs');
+            var arr = document.getElementById('arr');
+            var ad = document.getElementsByClassName('inner')[0];
+            var imgWidth = ad.offsetWidth;
+            var box = document.getElementsByClassName('outer')[0];
+
+
+            // 鼠标进入显示移开隐藏;
+            box.onmouseover = function () {
+                arr.style.display = 'block';
+            }
+            box.onmouseout = function () {
+                arr.style.display = 'none';
+            }
+
+            // 需求1思路: 鼠标点击右侧，让自定义的索引值自增, 然后根据索引值移动ul;
+            right.onclick = function () {
+                num++;
+                // num有取值范围, num==4是最大值, 等于5的时候就不能执行了, 还得便会4;
+                if (num == 5) {
+                    num = 4;
+                }
+                // 移动ul: ul移动得距离就是li对应得索引值个图片的宽;
+                var sss = imgWidth * num;
+                animate2(ul, -sss);
+            }
+
+            // 需求2: 鼠标点击左侧按钮, 当前图片显示上一张;(逻辑相反)
+            left.onclick = function () {
+                num--;
+                // num有取值范围, num == 0是最小值, 等于-1的时候就步能执行了, 还得变回0；
+                if (num == -1) {
+                    num = 0;
+                }
+                // 移动ul: ul移动得距离就是li对应得索引值个图片得宽;
+                var sss = imgWidth * num;
+                animate2(ul, -sss);
+
+            }
+
+
+            // 匀速动画封装;
+            function animate2(element, target) {
+                // 要用定时器，先清定时器
+                clearInterval(element.timer);
+                // 把定时器绑定到元素的自定义属性上
+                element.timer = setInterval(function () {
+                    // 处理步长
+                    var step = target > element.offsetLeft ? 10 : -10;
+                    // 赋值
+                    element.style.left = element.offsetLeft + step + 'px';
+                    // 走过了或者
+                    // 不足一个步长就停止定时器;
+                    if (Math.abs(target - element.offsetLeft) <= Math.abs(step)) {// 负值的时候也要一步一步走
+                        // 直接设置目标位置；
+                        element.style.left = target + 'px';
+                        clearInterval(element.timer);
+                    }
+                }, 5);
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <div class="tupian1">
+    </div>
+    <div class="content w">
+        <div class="liebiao">
+            <ul>
+                <li><a href="pvpguide.html" >狼狱水上竞技场</a></li>
+                <li><a href="pvpguide2.html" id="aa">狼群盛宴</a></li>
+                <li><a href="pvpguide3.html">群狼困斗</a></li>
+            </ul>
+        </div>
+        <div class="thefeast">
+            <div class="thefeast-left"></div>
+            <div class="thefeast-right">
+                <div class="thefeast-right-img"></div>
+                <div class="thefeast-right-text">
+                    <a href="#">开启任务</a>
+                    <a href="#">竞赛规则</a>
+                    <a href="#">胜利条件与金币</a>
+                    <a href="#">特殊规则</a>
+                    <a href="#">段位积分</a>
+                </div>
+            </div>
+        </div>
+        <div class="mid-con-left-top">
+            <div class="outer">
+                <!--内部盒子-->
+                <div class="inner">
+                    <!--图片-->
+                    <ul id="imgs">
+                        <li><img src="../images/ss_01.jpg" alt=""/></li>
+                        <li><img src="../images/ss_02.jpg" alt=""/></li>
+                        <li><img src="../images/ss_03.jpg" alt=""/></li>
+                        <li><img src="../images/ss_04.jpg" alt=""/></li>
+                        <li><img src="../images/ss_05.jpg" alt=""/></li>
+
+                    </ul>
+                    <!--小方块-->
+                    <ol class="inner-ol">
+                        <li class="current"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ol>
+                    <div id="arr">
+                        <img id="left" src="../images/lunLeft.png" alt=""/>
+                        <img id="right" src="../images/lunRight.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <p class="container">群狼盛宴是相互掠夺对方的金币，最后以持有金币数量决定胜负的模式。在定期举办的赛季中，可以在网页上查看代表自身实力的积分、段位、排名等，玩家可相互竞争提升排名。
+            赛季结束后，排名靠前的玩家可获得赛季奖励。</p>
+
+</div>
+
+
+    <div class="start-task container">
+        <img class="title" src="../images/ttl_quest.png" alt=""/>
+        <p>要开启群狼盛宴模式，首先需要完成竞技场的开启任务。</p>
+        <div class="gray-bg">
+            <i class="icon-tb"><img src="../images/ic_quest.png" alt=""/></i>
+            <span class="icon-text">狱中斗狼（黑涡团）</span>
+        </div>
+        <div class="content container">
+            <img class="content-l" src="../images/ss_quest_map_01.png" alt=""/>
+            <div class="content-r">
+
+                <span class="bold">委托等级</span>
+                <span>战斗精英／魔法导师 50级</span>
+                <span class="bold">委托地点</span>
+                <span>利姆萨·罗敏萨上层甲板</span>
+                <span>NPC“尔·阿夏”</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="start-task2 container">
+        <div class="gray-bg">
+            <i class="icon-tb"><img src="../images/ic_quest.png" alt=""/></i>
+            <span class="icon-text">狱中斗狼（双蛇党）</span>
+        </div>
+        <div class="content container">
+            <img class="content-l" src="../images/ss_quest_map_02.png" alt=""/>
+            <div class="content-r">
+
+                <span class="bold">委托等级</span>
+                <span>战斗精英／魔法导师 50级</span>
+                <span class="bold">委托地点</span>
+                <span>利姆萨·罗敏萨上层甲板</span>
+                <span>NPC“尔·阿夏”</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="start-task3 container">
+        <div class="gray-bg">
+            <i class="icon-tb"><img src="../images/ic_quest.png" alt=""/></i>
+            <span class="icon-text">狱中斗狼（恒辉队）</span>
+        </div>
+        <div class="content container">
+            <img class="content-l" src="../images/ss_quest_map_03.png" alt=""/>
+            <div class="content-r">
+
+                <span class="bold">委托等级</span>
+                <span>战斗精英／魔法导师 50级</span>
+                <span class="bold">委托地点</span>
+                <span>利姆萨·罗敏萨上层甲板</span>
+                <span>NPC“尔·阿夏”</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
+
+
+<!--<div class="dier w1">-->
+<!--<p>狼狱水上竞技场是玩家可以相互决斗，享受竞技乐趣的PVP场所。-->
+<!--<br>狼狱水上竞技场中有“群狼盛宴”和“群狼困斗”两种比赛模式，参加者会分配到“尖牙队”和“利爪队”-->
+<!--<br>的其中之一，与另一方队伍进行对决。-->
+<!--<br><br>因为是轻锐小队之间的对抗，为了获得胜利，个人的技术与团队的协作都十分重要。-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="dier w1">-->
+<!--<p>狼狱水上竞技场是玩家可以相互决斗，享受竞技乐趣的PVP场所。-->
+<!--<br>狼狱水上竞技场中有“群狼盛宴”和“群狼困斗”两种比赛模式，参加者会分配到“尖牙队”和“利爪队”-->
+<!--<br>的其中之一，与另一方队伍进行对决。-->
+<!--<br><br>因为是轻锐小队之间的对抗，为了获得胜利，个人的技术与团队的协作都十分重要。-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="dier w1">-->
+<!--<p>狼狱水上竞技场是玩家可以相互决斗，享受竞技乐趣的PVP场所。-->
+<!--<br>狼狱水上竞技场中有“群狼盛宴”和“群狼困斗”两种比赛模式，参加者会分配到“尖牙队”和“利爪队”-->
+<!--<br>的其中之一，与另一方队伍进行对决。-->
+<!--<br><br>因为是轻锐小队之间的对抗，为了获得胜利，个人的技术与团队的协作都十分重要。-->
+<!--</p>-->
+<!--</div>-->
+<!--<div class="dier w1">-->
+<!--<p>狼狱水上竞技场是玩家可以相互决斗，享受竞技乐趣的PVP场所。-->
+<!--<br>狼狱水上竞技场中有“群狼盛宴”和“群狼困斗”两种比赛模式，参加者会分配到“尖牙队”和“利爪队”-->
+<!--<br>的其中之一，与另一方队伍进行对决。-->
+<!--<br><br>因为是轻锐小队之间的对抗，为了获得胜利，个人的技术与团队的协作都十分重要。-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->

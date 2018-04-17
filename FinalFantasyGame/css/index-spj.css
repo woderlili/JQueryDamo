@@ -1,0 +1,233 @@
+/*头部开始*/
+
+body {
+    background-image: url("../images/bg.jpg");
+}
+
+
+
+
+#head {
+    width: 1519px;
+
+}
+
+/*导航开始*/
+#navbox{
+    width: 1519px;
+    height: 95px;
+    position: relative;
+}
+#nav {
+    width: 1519px;
+    height: 95px;
+
+}
+
+.nav {
+    width: 193px;
+    height: 40px;
+    background: red;
+
+}
+
+.nav {
+    position: absolute;
+    top: 30px;
+}
+
+#kq {
+    left: 280px;
+    background: url(../images/JLtu.png) no-repeat 0px 0px;
+    display: block;
+}
+
+#gz {
+    left: 472px;
+    background: url(../images/JLtu.png) no-repeat -192px 0px;
+    display: block;
+}
+
+#gl {
+    left: 664px;
+    background: url(../images/JLtu.png) no-repeat -384px 0px;
+    display: block;
+}
+
+#bc {
+    left: 855px;
+    background: url(../images/JLtu.png) no-repeat -576px 0px;
+    display: block;
+}
+
+#df {
+    left: 1047px;
+    background: url(../images/JLtu.png) no-repeat -768px 0px;
+    display: block;
+}
+
+/*内容开始*/
+#content {
+    width: 1519px;
+    background: url("../images/bg.jpg");
+    height: 100%;
+}
+
+#start {
+    height: 508px;
+    margin-bottom: 32px;
+}
+
+#kqbox {
+    height: 1750px;
+}
+#kqbox>.w {
+    position: relative;
+}
+
+#rwb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4763a7;
+    position: absolute;
+    top: 45px;
+    left: 10px;
+}
+#kqbox>.w>#rw {
+    position: absolute;
+    font-size: 16px;
+    top: 38px;
+    left: 30px;
+}
+
+#kqbox>.w>#dgbox {
+    height: 26px;
+    width: 600px;
+    background: white;
+    opacity: 0.2;
+    position: absolute;
+    top: 82px;
+    left: 10px;
+}
+#kqbox>.w>#gth {
+    height: 35px;
+    position: absolute;
+    top: 80px;
+    left: 15px;
+}
+#kqbox>.w>#dg {
+    font: 15px 宋体;
+    color: #4763a7;
+    font-weight: 700;
+    position: absolute;
+    top: 85px;
+    left: 50px;
+}
+
+#kqbox>.w>#map1 {
+    position: absolute;
+    top: 120px;
+    left: 10px;
+}
+#kqbox>.w>#rwtxt {
+    position: absolute;
+    top: 130px;
+    left: 350px;
+}
+#kqbox>.w>#rwtxt>p {
+    margin-top: 10px;
+}
+
+
+#ffb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4763a7;
+    position: absolute;
+    top: 370px;
+    left: 10px;
+}
+#ff {
+    position: absolute;
+    font-size: 16px;
+    top: 365px;
+    left: 30px;
+}
+
+#fftxt {
+    position: absolute;
+    top: 400px;
+    left: 10px;
+}
+
+#map2 {
+    position: absolute;
+    top: 450px;
+    left: 10px;
+}
+
+#fftext {
+    position: absolute;
+    top: 470px;
+    left: 350px;
+}
+
+#mgzb {
+    position: absolute;
+    top:705px;
+    left: 130px;
+    border-radius: 10px;
+}
+.h4 {
+    font-weight: 700;
+    color:saddlebrown;
+}
+
+#gddjr{
+
+    position: absolute;
+    top: 1150px;
+    left: 30px;
+    line-height: 50px;
+}
+
+
+
+
+#gzbox {
+
+    height: 1750px;
+
+}
+
+#gzbox>.w{
+    position: relative;
+}
+
+
+#gzb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4763a7;
+    position: absolute;
+    top: 50px;
+    left: 10px;
+}
+    #cddd {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #4763a7;
+        position: absolute;
+        top: 315px;
+        left: 10px;
+    }
+
+#gzgddjr {
+    position: absolute;
+    top: 1100px;
+    line-height: 50px;
+}

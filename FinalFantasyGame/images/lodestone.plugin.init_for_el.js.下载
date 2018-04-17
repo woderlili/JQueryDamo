@@ -1,0 +1,579 @@
+Lodestone.add_init_for_el_plugin(function($el) {
+	// switch back sp
+	$el.find('#bt_for_smartphone,#link_spsite a').click(function() {
+		$.ajax({
+			type: 'POST',
+			url: sprintf(
+				'%sswitch_sp',
+				api_uri
+			),
+			dataType: 'json',
+			data: {
+				'csrf_token': csrf_token
+			},
+			success: function(data) {
+				if ( data.error ) {
+					alert(data.error.message);
+				}
+				else {
+					silent_reload();
+				}
+			}
+		});
+	});
+
+	$el.find('#toptabchanger').topTabChanger();
+	$el.find('.sidemenuchanger').sideMenuChanger();
+	$el.find('.tabmenu_change_cont').tabChanger();
+	function is_touch_device() {
+		return !! ('ontouchstart' in window);
+	}
+	function reset_attr_href(my_obj){
+		if(my_obj.attr("fclick") == "0"){
+			my_obj.closest(".main-nav").find("a").attr("fclick", "0");
+			my_obj.attr("fclick","1");
+		}else{
+			my_obj.attr("href",my_obj.attr("href2"));
+		}
+	}
+	function reset_touch_hover($anc) {
+		$anc.attr("fclick","0");
+		$anc.attr("href2" , $anc.attr("href"));
+		$anc.attr("href","javascript:void(0)");
+	}
+	if (is_touch_device() || (navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 1)) {
+		$el.find(".dropdown_box .main-nav a").each(function(){
+			reset_touch_hover($(this));
+			$(this).click(function(e) {
+				reset_attr_href($(this));
+			});
+		});
+	}
+	$el.find('.dropdown_box').dropdown();
+	$el.find('.dropdown_trigger_box').dropdown({mouse_click:true});
+	if(navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 1){
+		document.addEventListener("MSPointerDown" , ie10tot , false);
+		document.addEventListener("mousemove" , ie10tomouse , false);
+		f_ie10tomouse = 0;
+		f_tnum = 0;
+	}
+	function ie10tot(){
+		f_ie10tomouse = 1;
+	}
+	function ie10tomouse(){
+		if(f_tnum == 1 && f_ie10tomouse == 0 ){
+			document.removeEventListener("MSPointerDown" , ie10tot , false);
+			document.removeEventListener("mousemove" , ie10tomouse , false);
+			f_pass=false;
+			$el.find('#character .ic_reflection_box:not(.tooltip)').attr("onFlg","0").itemDetailDropdown();
+			$el.find('.dropdown_box').dropdown();
+			$el.find('.dropdown_trigger_box').dropdown({mouse_click:true});
+		}
+		f_tnum++
+	}
+	$el.find('#character .ic_reflection_box:not(.tooltip)').attr("onFlg","0").itemDetailDropdown();
+	if (navigator.userAgent.indexOf('iPad') < 1 && navigator.userAgent.indexOf('Android') < 1 ) {
+		$el.find('.tooltip').tooltip();
+		$el.find('.img_tooltip').imgTooltip();
+	}
+	var vg = $el.find(".grid_area").css({visibility:'visible'}).vgrid({
+		easing: "easeOutQuint",
+		useLoadImageEvent: true,
+		time: 400,
+		delay:50,
+		fadeIn: {
+			time: 500,
+			delay: 300
+		}
+	});
+	var more_interval;
+	var more_count=1;
+	var mywall_page = 1;
+	var mywall_f_click=true;
+	var $activity_messages = $el.find('.my_wall .sys_activity_messages');
+	function more(){
+		mywall_page++;
+		var min_id = $activity_messages.find('li:last-child').data('min_id');
+		$.ajax({
+			type: 'GET',
+			cache: false,
+			url: base_uri.concat('my/more_wall/'),
+			data: {
+				page: mywall_page,
+				min_id: min_id
+			},
+			dataType: 'html',
+			success: function(more_dm_html) {
+				if ( more_dm_html === '' ) {
+				}
+				else {
+					var $more_dm_html = $($.parseHTML(more_dm_html));
+					if ( $more_dm_html.filter('.last_message').length ) {
+						$el.find('.bt_more_wall').hide();
+					}
+					Lodestone.init_for_el($more_dm_html);
+					if(mywall_f_click){
+						setTimeout(function(){
+							$el.find(".my_wall .lcNoneList-wall").append($more_dm_html);
+							$el.find(".my_wall").css({marginBottom:'0'});
+							$el.find(".more_" + mywall_page).animate({
+								"height": "show",
+								"marginTop": "show",
+								"marginBottom": "show",
+								"paddingTop": "show",
+								"paddingBottom": "show"
+								},
+								{duration: 800, easing: "linear",
+									complete: function(){stop_more_interval();}
+								}
+							);
+							more_count_fin = $el.find(".more_" + mywall_page).length;
+						},800);
+					}else{
+						$el.find(".my_wall .lcNoneList-wall").append($more_dm_html);
+						$el.find(".more_" + mywall_page).animate({
+							"height": "show",
+							"marginTop": "show",
+							"marginBottom": "show",
+							"paddingTop": "show",
+							"paddingBottom": "show"
+							},
+							{duration: 800, easing: "linear",
+								complete: function(){stop_more_interval();}
+							}
+						);
+						more_count_fin = $el.find(".more_" + mywall_page).length;
+					}
+					clearInterval(more_interval);
+				}
+			}
+		});
+	}
+	function stop_more_interval(){
+		if(more_count == more_count_fin ){
+			clearInterval(more_interval);
+			more_count=1;
+			mywall_f_click=false;
+		}else{
+			more_count++
+		}
+	}
+	$el.find('.bt_more_wall').click(function(){more()}).attr("href","javascript:void(0)");
+	$el.find('#slider').slider({
+		interval:4000,
+		animateSpeed:1000,
+		animateEase:'easeOutQuart'
+	});
+	$el.find('#imgview .control').centering_h();
+	$el.find('.centering').centering();
+	$el.find('.centering_h').centering_h();
+
+	/* fancybox */
+	$el.find("#fancybox-outer").hover(
+		function() {$el.find("#fancybox-close").stop().fadeTo(200, 1.0);},
+		function() {$el.find("#fancybox-close").stop().fadeTo(200, 0);}
+	);
+	$el.find("#fancybox-left").hover(
+		function() {$el.find("#fancybox-left-ico").stop().fadeTo(200, 1.0);},
+		function() {$el.find("#fancybox-left-ico").stop().fadeTo(200, 0);}
+	);
+	$el.find("#fancybox-right").hover(
+		function() {$el.find("#fancybox-right-ico").stop().fadeTo(200, 1.0);},
+		function() {$el.find("#fancybox-right-ico").stop().fadeTo(200, 0);}
+	);
+
+	/* placeholder IE */
+	if(navigator.userAgent.indexOf("MSIE 8")>=0 || navigator.userAgent.indexOf("MSIE 9")>=0){
+		$el.find('[placeholder]').ie_placeholderFix();
+	}
+	/* StyleSet:IE8 */
+	if(navigator.userAgent.indexOf("MSIE 8")>=0){
+		$el.find('.list_style1 li:last-child').css({border:'none'});
+		$el.find('.table_elements tr:nth-child(odd) th').css({backgroundColor:'#1f1f1f'});
+		$el.find('.table_elements tr:nth-child(even) th').css({backgroundColor:'#242424'});
+		$el.find('.table_elements tr:nth-child(odd) td').css({backgroundColor:'#2e2e2e'});
+		$el.find('.table_elements tr:nth-child(even) td').css({backgroundColor:'#333'});
+		$el.find('#mydiary_detail .thumb_list li:last-child').css({margin:0});
+		$el.find('#mydiary_detail .comment_list .comment:last-child').css({marginBottom:0,paddingBottom:0,background:'none'});
+		$el.find('.table_black_border_edge table tr:nth-child(even) th').css({backgroundColor:'#242424'});
+		$el.find('.table_black_border_edge table tr:nth-child(even) td').css({backgroundColor:'#333'});
+		$el.find('.comment_list .comment:last-child').css({marginBottom:0,paddingBottom:0,background:'none'});
+		$el.find('.news_list li:last-child').css({marginBottom:0});
+		$el.find('.topics_list li:last-child').css({marginBottom:0,background:'none'});
+		$el.find('dl.news_list:last-child').css({marginBottom:0,background:'none'});
+		$el.find('.related_list li:last-child').css({marginBottom:0});
+		$el.find('#news_list .related_list li:first-child').css({background:'none'});
+		$el.find('.activity_list li:last-child').css({background:'none'});
+		$el.find('[class^="lcNoneList-"] li:last-child').css({background:'none'});
+		$el.find('#form_edit .date_box select:first-child').css({marginLeft:0});
+		$el.find('#form_edit tr:nth-child(odd) th').css({backgroundColor:'#1f1f1f'});
+		$el.find('#form_edit tr:nth-child(even) th').css({backgroundColor:'#242424'});
+		$el.find('#form_edit tr:nth-child(odd) td').css({backgroundColor:'#2e2e2e'});
+		$el.find('#form_edit tr:nth-child(even) td').css({backgroundColor:'#333'});
+		$el.find('.table_black_border_bottom .table_elements_com_ls tr:nth-child(odd) td').css({backgroundColor:'#1f1f1f'});
+		$el.find('.table_black_border_bottom .table_elements_com_ls tr:nth-child(even) td').css({backgroundColor:'#242424'});
+		$el.find('#character .class_list td:nth-child(2)').css({width:'32px',backgroundColor:'#2e2e2e',textAlign:'center'});
+		$el.find('#character .class_list td:nth-child(5)').css({width:'32px',backgroundColor:'#2e2e2e',textAlign:'center'});
+		$el.find('#character .class_list td:nth-child(3)').css({width:'128px',backgroundColor:'#333',textAlign:'center'});
+		$el.find('#character .class_list td:nth-child(6)').css({width:'128px',backgroundColor:'#333',textAlign:'center'});
+		$el.find('#community_top .table_black tr:nth-child(odd) td').css({backgroundColor:'#1f1f1f'});
+		$el.find('#community_top .table_black tr:nth-child(even) td').css({backgroundColor:'#242424'});
+		$el.find('#main .table_black table tr:nth-child(odd) th').css({backgroundColor:'#1F1F1F'});
+		$el.find('#main .table_black table tr:nth-child(even) th').css({backgroundColor:'#242424'});
+		$el.find('#main .table_black table tr:nth-child(odd) td').css({backgroundColor:'#2E2E2E'});
+		$el.find('#main .table_black table tr:nth-child(even) td').css({backgroundColor:'#333'});
+		$el.find('.table_black .table_elements_fc_member th:nth-child(odd)').css({width:'90px',backgroundColor:'#1f1f1f'});
+		$el.find('.table_black .table_elements_fc_member th:nth-child(even)').css({backgroundColor:'#242424'});
+		$el.find('.table_black_border_bottom .table_elements_com_ls tr:nth-child(odd) th').css({backgroundColor:'#1f1f1f'});
+		$el.find('.table_black_border_bottom .table_elements_com_ls tr:nth-child(odd) td').css({backgroundColor:'#1f1f1f'});
+		$el.find('.table_black_border_bottom .table_elements_com_ls tr:nth-child(even) th').css({backgroundColor:'#242424'});
+		$el.find('.table_black_border_bottom .table_elements_com_ls tr:nth-child(even) td').css({backgroundColor:'#242424'});
+		$el.find('.table_black_w349 tr th:first-child').css({width:'44px',height:'30px',verticalAlign:'middle'});
+		$el.find('.table_black_w349 tr td:last-child').css({borderRight:'1px solid #3c3c3c'});
+		$el.find('.table_black_w349 tr:last-child td').css({borderBottom:'1px solid #3c3c3c'});
+		$el.find('.table_black_w349 tr:nth-child(odd) td').css({backgroundColor:'#242424'});
+		$el.find('.table_black_w349 tr:nth-child(even) td').css({backgroundColor:'#1f1f1f'});
+		$el.find('.sidemenuchanger .sidemenuchanger_col:first-child').css({display:'block'});
+		$el.find('.fc_chest_leftmenu li:nth-child(2)').css({backgroundPosition:'8px -32px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(3)').css({backgroundPosition:'8px -64px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(4)').css({backgroundPosition:'8px -96px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(5)').css({backgroundPosition:'8px -128px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(1) a.active span').css({backgroundPosition:'8px -16px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(2) a.active span').css({backgroundPosition:'8px -48px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(3) a.active span').css({backgroundPosition:'8px -80px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(4) a.active span').css({backgroundPosition:'8px -112px'});
+		$el.find('.fc_chest_leftmenu li:nth-child(5) a.active span').css({backgroundPosition:'8px -144px'});
+		$el.find('.fc_chest_cnts_r .table_black_w460 table th:nth-child(2)').css({width:'77px',backgroundColor:'#242424',textAlign:'center'});
+		$el.find('.fc_chest_cnts_r .table_black_w460 table td:nth-child(2)').css({backgroundColor:'#333',textAlign:'center'});
+
+		/* エオルゼアDB テーブルスタイル */
+		$el.find('#main #eorzea_db .table_black tr th.col_left').css({backgroundColor:'#1F1F1F'});
+		$el.find('#main #eorzea_db .table_black tr th.col_center').css({backgroundColor:'#242424'});
+		$el.find('#main #eorzea_db .table_black tr th.col_right').css({backgroundColor:'#1F1F1F'});
+		$el.find('#main #eorzea_db .table_black tr:nth-child(even) td.col_left').css({backgroundColor:'#2E2E2E'});
+		$el.find('#main #eorzea_db .table_black tr:nth-child(even) td.col_center').css({backgroundColor:'#333'});
+		$el.find('#main #eorzea_db .table_black tr:nth-child(odd) td.col_center').css({backgroundColor:'#333'});
+		$el.find('#main #eorzea_db .table_black tr:nth-child(even) td.col_right').css({backgroundColor:'#2E2E2E'});
+		
+		/* 1column */
+		$el.find('.table_black .column1 td .no_th tr:nth-child(odd) td').css({backgroundColor:'#2E2E2E'});
+		$el.find('.table_black .column1 td .no_th tr:nth-child(even) td').css({backgroundColor:'#333'});
+		$el.find('.table_black .column1 tr:nth-child(even) td').css({backgroundColor:'#2e2e2e'});
+		$el.find('.table_black .column1 tr:nth-child(odd) td').css({backgroundColor:'#333333'});
+		$el.find('.table_black .column1 .inr_table tr:nth-child(even) td').css({backgroundColor:'#2e2e2e'});
+		$el.find('.table_black .column1 .inr_table tr:nth-child(odd) td').css({backgroundColor:'#333333'});
+	}
+	
+	//ワールド稼働状況テーブルにクラス付与と最後のボックスのmargin削除用クラス付与
+	$el.find('#server_status tr:nth-child(odd)').addClass("odd");
+	$el.find('#server_status tr:nth-child(even)').addClass("even");
+	$el.find('#server_status .area_inner_header:last-child').addClass("last");
+
+	/* [マイフリーカンパニー メンバーサマリー]の空の背景色を変更 */
+	$el.find('.table_elements_fc_member td').each(function(){
+		if($(this).html().length==0){
+			$(this).css({backgroundColor:'#3c3c3c'});
+		}
+	});
+	/* [キャラクター クラスリスト]の空の背景色を変更 */
+	$el.find('.class_list td').each(function(){
+		if($(this).html().length==0){
+			$(this).css({background:'#3c3c3c'});
+		}
+	});
+	/* 著作権について */
+	$el.find(".l__footer a.caution").bind("click", function() {
+		window.open(
+			'http://www.jp.square-enix.com/caution.html',
+			'winCaution',
+			'toolbar=no,status=no,location=no,directories=no,menubar=no,scrollbars=yes,width=720,height=400'
+		);
+	});
+	/* [タグ絞り込み]WinのみスクロールバーがでるタイミングでPaddingをとる */
+	if($el.find('.narrowdown_box ul.tag_narrowdown li').length>10){
+		$el.find('.narrowdown_box ul.tag_narrowdown').css({overflow:'auto'});
+		if(navigator.platform.indexOf("Win")!=-1){
+			$el.find('.narrowdown_box ul.tag_narrowdown').css({paddingRight:'25px'});
+		}
+	}else{
+		$el.find('.narrowdown_box ul.tag_narrowdown').css({overflow:'auto'});
+	}
+
+	// selectでsubmitするformは戻るボタンを使うと矛盾が発生するので
+	// 表示タイミングでresetしておく
+	$el.find('select[onchange="this.form.submit()"]').each(function() {
+		$(this).closest('form')[0].reset();
+	});
+
+	/* 外部リンクを確認させる */
+	$el.find('a.outboundLink').click(function() {
+		var $this = $(this);
+		var message = $this.hasClass('outboundImage') ? l('file.msg.note15') : l('msg.common.dialog.outboundlink');
+		var targeturl = $(this).attr("href");
+		ldstDialog.open(message + "\n\n" + targeturl + "\n\n" + l('msg.common.dialog.outboundlink2'), "CONFIRM",
+		function(b) {
+			if (b)
+				window.open(targeturl, "_blank");
+		}, true, 500);
+		return false;
+	});
+	
+	$el.find(".thumb_list a.outboundLink").hover(function() {
+		$(this).prepend('<div class="thumb_hover"></div>');
+	}, function() {
+		$(this).find('.thumb_hover').remove();
+	});
+
+	$el.find('.datetime[data-epoch][data-format]').each(function() {
+		var $this = $(this);
+		var format = $this.data('format');
+		var epoch  = $this.data('epoch');
+		var epoch_dt = new Date(epoch * 1000);
+		if ( format === 'YMDHM_HM' ) {
+			var target_epoch  = $this.data('target_epoch');
+			var target_epoch_dt = new Date(target_epoch * 1000);
+			if ( epoch_dt.sameYMD(target_epoch_dt) ) {
+				$this.text(epoch_dt.ldst_strftime('HM'));
+			}
+			else {
+				$this.text(epoch_dt.ldst_strftime('YMDHM'));
+			}
+		}
+		else {
+			$this.text(epoch_dt.ldst_strftime(format));
+		}
+	});
+	$el.find('.datetime[data-epoch][data-format-raw]').each(function() {
+		var $this = $(this);
+		var format = $this.data('format-raw');
+		var epoch  = $this.data('epoch');
+		var epoch_dt = new Date(epoch * 1000);
+		$this.text(epoch_dt.ldst_strftime_raw_format(format));
+	});
+
+	//embed_code
+	$el.find('.embed_code_wrap').each(function() {
+		var $this = $(this);
+		var $bt_embed_code = $this.find('.bt_embed_code');
+		$bt_embed_code.click(function(){
+			$this.find('.embed_code_txt').filter(':not(:animated)').slideToggle('300',function(){
+				$bt_embed_code.toggleClass('active');
+			});
+		});
+	});
+
+	//#mypage_tabmenu
+	$el.find('#mypage_tabmenu').each(function() {
+		$(this).find('a').on("click", function() {
+			var $trigger = $(this);
+			var $target  = $el.find($trigger.attr("href"));
+			$trigger.closest('#mypage_tabmenu').find('a').removeClass('tabmenu-active');
+			$trigger.addClass('tabmenu-active');
+			$target.closest('.tabbox').children('li').removeClass('tabbox-show');
+			$target.addClass('tabbox-show');
+			return false;
+		});
+	});
+
+	// lazy load myevent activity
+	$el.find('.sys_myevent_activity_load').one("mousedown", function() {
+		$.ajax({
+			type: 'GET',
+			cache: false,
+			url: base_uri.concat('my/event/activity_for_top/'),
+			dataType: 'html',
+			success: function(activities_html) {
+				var $activities_container = $el.find('#sys_myevent_activities');
+				$activities_container.html(activities_html);
+				$activities_container.find('.lcNoneList-event li').show();
+				Lodestone.init_for_el($activities_container);
+			}
+		});
+	});
+
+	var $instance_maitenance_message = $el.find('.instance_maitenance_message');
+	$instance_maitenance_message.on("click", function() {
+		$.ajax({
+			type: 'POST',
+			url: api_uri.concat('read_instance_maintenance_message/'),
+			data: {
+				'csrf_token': csrf_token
+			},
+			dataType: 'json',
+			success: function(res) {
+				location.href = $instance_maitenance_message.data('href');
+			}
+		});
+	});
+	$el.find('.bt_logout a').on("click", function() {
+		// APIメンテナンス中か確認してメッセージを変更する
+		$.ajax({
+			type: 'GET',
+			cache: false,
+			url: api_uri.concat('is_ffxiv_api_maintenance/'),
+			dataType: 'json',
+			success: function(res) {
+				var confirm_msg;
+			    if ( res.data.is_ffxiv_api_maintenance ) {
+					confirm_msg = l('msg.common.apisysMaintelogout')
+				}
+				else {
+					confirm_msg = l('msg.common.Logoutmsg');
+				}
+				ldstDialog.open(confirm_msg, "CONFIRM", function(b) {
+					if (b) {
+						location.href = base_uri.concat("account/logout");
+					}
+				}, true);
+			}
+		});
+	});
+
+	// header menu
+	function toggleMyMenu($target) {
+		var $this = $target;
+		var $mymenu = $this.siblings('.my-character-menu');
+		$mymenu.stop().animate({height: 'toggle', opacity: 'toggle'}, 400, 'swing', function() {
+			if ($mymenu.is(':visible')) {
+				$this.addClass('my_character__open');
+			}
+			else {
+				$this.removeClass('my_character__open');
+			}
+			$mymenu.css({'height': ''});
+		});
+	}
+	$el.find('.head-my-character__info').click(function() {
+		toggleMyMenu($(this));
+	});
+	var $mybox = $('.head-my-character__info');
+	$mybox.mousedown(function() {
+		$(this).addClass('active');
+	});
+	$mybox.bind('mouseup mouseout',function() {
+		$(this).removeClass('active');
+	});
+
+	(function() {
+		var $form = $el.find('.select_character_api_xhr_form');
+		if ( $form.length > 0 ) {
+			function submit_error_fn(xhrform, xhr, textStatus, errorThrown) {
+				if ( xhr.status == '403' ) {
+					location.href = base_uri.concat('account/login/');
+				}
+				else {
+					silent_reload();
+				}
+				return true;
+			}
+			$form.xhrform({
+				redirect: base_uri.concat('my/'),
+				submit_error_fn: submit_error_fn,
+				unscroll: true
+			});
+			$el.find('.sys-my-character-menu__tab-switch').one('mousedown', function() {
+				// キャラクター切替
+				$.ajax({
+					type: 'GET',
+					cache: false,
+					url: base_uri.concat('account/select_character_api/'),
+					dataType: 'html',
+					success: function(more_html, type, xhr) {
+						var $more_html = $($.parseHTML(more_html));
+						Lodestone.init_for_el($more_html);
+						$more_html.find('.sys-select_character_api').on('click', function() {
+							if ( $form.find('input[name=cicuid]').length >= 1 ) {
+								if ( $(this).data('character_id') ) {
+									$form.find('input[name=cicuid]').attr('name', 'character_id').val($(this).data('character_id'));
+								}
+								else {
+									$form.find('input[name=cicuid]').val($(this).data('cicuid'));
+								}
+							}
+							else {
+								$form.find('input[name=character_id]').val($(this).data('character_id'));
+							}
+							$form.submit();
+						});
+						$('.select-character__loading').fadeOut(400,function(){
+							$el.find('.select-character').html($more_html);
+						});
+					}
+				});
+			});
+		}
+	})();
+
+	$el.find('.my-character-menu__tab').click(function() {
+		var $tabs = $el.find('.my-character-menu__tab');
+		var index = $tabs.index(this);
+		$tabs.removeClass('active');
+		$(this).addClass('active');
+
+		$(this).parent().siblings('.my-menu,.select-character').hide().eq(index).show();
+	});
+	$el.click(function(e) {
+		if ($(e.target).closest('.head-my-character').length == 0) {
+			var $mymenu = $('.my-character-menu').not(':animated');
+			if ($mymenu.is(':visible')) {
+				toggleMyMenu($('.head-my-character__info'));
+			}
+		}
+	});
+	$el.find('.main-nav li,.sub-nav__list').hover(function() {
+		var index = $(this).parent().children().index(this);
+		$('.main-nav li').eq(index).find('a').addClass('active');
+		$('.sub-nav__list').eq(index).addClass('active');
+	}, function() {
+		$(this).removeClass('active');
+		var index = $(this).parent().children().index(this);
+		$('.main-nav li').eq(index).find('a').removeClass('active');
+		$('.sub-nav__list').eq(index).removeClass('active');
+	});
+
+	//ページトップ
+	var btn_pagetop = $('.page-top__btn');
+	$el.find(btn_pagetop).each(function(){
+		var showFlag = false;
+		$_window = $(window);
+		$_window.on('scroll load resize',function(){
+			var page_top__base_position = $('.page-top').offset();
+			var page_top__button_position = $_window.scrollTop() + $_window.innerHeight() - (12 + btn_pagetop.height());
+			if(page_top__base_position.top < $_window.innerHeight()){
+				btn_pagetop.addClass('page-top__btn--absolute');
+				showFlag = true;
+				btn_pagetop.stop().animate({'right':'64px','opacity':'.5'},400);
+			}else{
+				if($_window.scrollTop() < 2){
+					if (showFlag) {
+						showFlag = false;
+						btn_pagetop.stop().animate({'right':'-48px','opacity':'0'},400);
+					}
+				}else{
+					if (showFlag == false) {
+						showFlag = true;
+						btn_pagetop.stop().animate({'right':'64px','opacity':'.5'},400);
+					}
+				}
+				if(page_top__base_position.top <= page_top__button_position){
+					btn_pagetop.addClass('page-top__btn--absolute');
+				}else{
+					btn_pagetop.removeClass('page-top__btn--absolute');
+				}
+			}
+		});
+
+	});
+	$('.page-top__btn').click(function(){
+		$('body,html').animate({
+			scrollTop: 0
+		}, 500);
+		return false;
+	});
+	$el.find('.l__header__link_management').hover(function() {
+		$('.l__header__inner').addClass('active');
+	}, function() {
+		$('.l__header__inner').removeClass('active');
+	});
+	$el.find('.brand__search').searcher();
+});

@@ -1,0 +1,12 @@
+
+.wechat-img {
+    width: 1920px;
+    height: 1200px;
+    background: url("../images/wechat-img.png") no-repeat center;
+/*æ”÷–œ‘ æ*/
+    position: relative;
+    left: 50%;
+    transform: translate(-50%) ;
+
+
+}

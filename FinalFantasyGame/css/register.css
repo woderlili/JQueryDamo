@@ -1,0 +1,214 @@
+/*初始化开始*/
+body, h1, h2, h3, h4, h5, h6, p, dl, dd, ul, ol, form, input, textarea, th, td, select {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+em, i {
+    font-style: normal;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+img {
+    border: none;
+    vertical-align: top;
+}
+table {
+    border-collapse: collapse;
+}
+input, textarea ,button{
+    outline: none;
+    border: 0;
+}
+textarea {
+    resize: none;
+    overflow: auto;
+}
+.w {
+    width: 1200px;
+    margin: 0 auto;
+}
+/*body {*/
+    /*font: 12px "微软雅黑";*/
+/*}*/
+/*初始化结束*/
+
+/*顶部开始*/
+.header {
+    padding: 50px;
+    text-align: center;
+}
+.login a {
+    display: inline-block;
+    background: url("../images/item03.png") no-repeat;
+    text-indent: -999999999px;
+    /*background-color: yellow;*/
+    width: 166px;
+    height: 43px;
+}
+.header h3 {
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: 400 ;
+}
+/*顶部结束*/
+/*tab标题按钮开始*/
+.content {
+    width: 400px;
+    margin: 0 auto;
+}
+.tab {
+    width: 399px;
+    height: 48px;
+    position: relative;
+    border-right: 1px solid #c7c7c7;
+}
+#nav {
+    height: 48px;
+}
+#nav li {
+    float: left;
+    width: 132px;
+    height: 48px;
+}
+#nav li a {
+    border: 1px solid #c7c7c7;
+    display: inline-block;
+    border-right: none;
+    border-bottom: 0;
+    line-height: 48px;
+    text-align: center;
+    width: 135px;
+    color: #221e1f;
+}
+.tab  #nav .cur a{
+    border: 1px solid #c9242b;
+    display: inline-block;
+    background-color: #fff;
+    position: absolute;
+    border-bottom: 0;
+    line-height: 48px;
+    text-align: center;
+    width: 134px;
+    color: #c9242b!important;
+}
+/*tab标题结束*/
+/*注册内容开始*/
+.info {
+    background-color: #ffffff;
+    border: 1px solid #c9242b;
+    padding: 0 28px;
+    margin-bottom: 20px;
+    display: none;
+}
+.regist {
+    margin-bottom: 200px;
+}
+/*当前内容显示样式*/
+.regist .active{
+    display: block;
+}
+.some {
+    width: 342px;
+    height: 65px;
+}
+.some input {
+    width: 344px;
+    height: 42px;
+    padding-left: 16px ;
+    border: 1px solid #c7c7c7;
+    font-size: 14px;
+}
+.some span{
+    width: 344px;
+    height: 20px;
+    color: #221e1f;
+    font-size: 12px;
+    line-height: 20px;
+    display: inline-block;
+}
+/*给鼠标失去焦点添加的样式*/
+.some .current {
+    width: 344px;
+    height: 20px;
+    color: #eb6100;
+    font-size: 12px;
+    line-height: 20px;
+    display: inline-block;
+    padding-left: 25px;
+    background: url("../images/item01.png") no-repeat 0 -20px;
+    background-size: 30px;
+}
+.phone ,.person, .emial{
+    margin-top: 20px;
+    width: 344px;
+}
+.mressige,.pwd, .name, .buttom , .per_email{
+    position: relative;
+    margin-top: 5px;
+}
+.mressige .code {
+    width: 140px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #c7c7c7;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    position: absolute;
+    right: -1px;
+    top: 1px;
+}
+.pwd .item {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: url("../images/item01.png") no-repeat 0 -157px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.pwd .act {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: url("../images/item01.png") no-repeat 0 -140px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.name p {
+    font-size: 14px;
+    color: #221e1f;
+    margin: 10px 0;
+}
+.buttom {
+    margin: 35px 0 0px 0;
+}
+.buttom .use_serv {
+    display: inline-block;
+}
+.buttom .use_serv a{
+    color:#c9242b;
+
+    font-size: 14px;
+    line-height: 40px;
+}
+.buttom button {
+    width: 190px;
+    height: 40px;
+    color:#ffffff;
+    font-size: 14px;
+    float: right;
+    background-color: #c9242b;
+}
+.per_email {
+    margin-top: 30px;
+}
+/*注册内容结束*/
+

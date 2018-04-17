@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/main.css">
+    <base target="_blank">
+    <script src="js/jquery-1.12.1.js"></script>
+    <script src="js/jiaodian-main.js"></script>
+    <script src="js/lunbo-main.js"></script>
+
+
+    <script>
+        window.onload = function () {
+            // 隐藏导航移入移出
+            var loginul = document.getElementsByClassName('logn-ul')[0];
+            var hidenav = document.getElementsByClassName('hidenav')[0];
+            loginul.onmouseover = function () {
+                hidenav.style.display = 'block';
+            }
+            loginul.onmouseout = function () {
+                hidenav.style.display = 'none';
+            }
+            hidenav.onmouseover = function () {
+                hidenav.style.display = 'block';
+            }
+            hidenav.onmouseout = function () {
+                hidenav.style.display = 'none';
+            }
+
+
+            var outer = document.getElementsByClassName('outer')[0];
+            var inner = document.getElementsByClassName('inner')[0];
+            var imgWidth = inner.offsetWidth;
+            var ol = document.getElementsByClassName('inner-ol')[0];
+            var olLiArr = ol.children;
+            var ul = document.getElementById('imgs');
+
+            for (var i = 0; i < olLiArr.length; i++) {
+                olLiArr[i].index = i;
+                olLiArr[i].onmouseover = function () {
+                    for (var j = 0; j < olLiArr.length; j++) {
+                        olLiArr[j].className = '';
+                    }
+                    this.className = 'current';
+                    var sss = imgWidth * this.index;
+                    animate(ul, -sss);
+                    console.log(this.index);
+                    console.log(-sss);
+                }
+            }
+            function animate(element, target) {
+                clearInterval(element.timer);
+                element.timer = setInterval(function () {
+                    var step = target > element.offsetLeft ? 10 : -10;
+                    element.style.left = element.offsetLeft + step + 'px';
+                    if (Math.abs(target - element.offsetLeft) <= Math.abs(step)) {// 负值的时候也要一步一步走
+                        element.style.left = target + 'px';
+                        clearInterval(element.timer);
+                    }
+                }, 5);
+            }
+
+
+            // 需求1：鼠标点击右侧按钮，当前图片显示下一张;
+            // 需求2：鼠标点击左侧按钮，当前图片显示上一张;(逻辑相反)
+
+            // 需求1：鼠标点击右侧按钮，当前图片显示下一张;
+            // 思路：原来有索引值可以移动ul，现在没有了，自定义变量当做索引值;
+            var num = 0;
+            // 获取相关元素;
+            var left = document.getElementById('left');
+            var right = document.getElementById('right');
+            var ul = document.getElementById('imgs');
+            var arr = document.getElementById('arr');
+            var ad = document.getElementsByClassName('inner')[0];
+            var imgWidth = ad.offsetWidth;
+            var box = document.getElementsByClassName('outer')[0];
+
+
+            // 鼠标进入显示移开隐藏;
+            box.onmouseover = function () {
+                arr.style.display = 'block';
+            }
+            box.onmouseout = function () {
+                arr.style.display = 'none';
+            }
+
+            // 需求1思路: 鼠标点击右侧，让自定义的索引值自增, 然后根据索引值移动ul;
+            right.onclick = function () {
+                num++;
+                // num有取值范围, num==4是最大值, 等于5的时候就不能执行了, 还得便会4;
+                if (num == 5) {
+                    num = 4;
+                }
+                // 移动ul: ul移动得距离就是li对应得索引值个图片的宽;
+                var sss = imgWidth * num;
+                animate2(ul, -sss);
+            }
+
+            // 需求2: 鼠标点击左侧按钮, 当前图片显示上一张;(逻辑相反)
+            left.onclick = function () {
+                num--;
+                // num有取值范围, num == 0是最小值, 等于-1的时候就步能执行了, 还得变回0；
+                if (num == -1) {
+                    num = 0;
+                }
+                // 移动ul: ul移动得距离就是li对应得索引值个图片得宽;
+                var sss = imgWidth * num;
+                animate2(ul, -sss);
+
+            }
+
+
+            // 匀速动画封装;
+            function animate2(element, target) {
+                // 要用定时器，先清定时器
+                clearInterval(element.timer);
+                // 把定时器绑定到元素的自定义属性上
+                element.timer = setInterval(function () {
+                    // 处理步长
+                    var step = target > element.offsetLeft ? 10 : -10;
+                    // 赋值
+                    element.style.left = element.offsetLeft + step + 'px';
+                    // 走过了或者
+                    // 不足一个步长就停止定时器;
+                    if (Math.abs(target - element.offsetLeft) <= Math.abs(step)) {// 负值的时候也要一步一步走
+                        // 直接设置目标位置；
+                        element.style.left = target + 'px';
+                        clearInterval(element.timer);
+                    }
+                }, 5);
+            }
+
+
+        }
+    </script>
+    <script>
+        //页面加载事件
+        $(function () {
+//            手风琴部分
+            $('.mid-con-left-downLoad>ul>li').mouseenter(function () {
+                $(this).siblings('li').css('width', '98px');
+                $(this).css('width', '590px');
+            });
+
+
+//新闻内容选项卡切换
+            $('.listNav>ul>li').mouseenter(function () {
+                //当鼠标进入获取索引值
+                var index = $(this).index();
+                $(".listContent>ul").eq(index).show().siblings('ul').hide();
+                $('.listContent>ul:eq('+index+')').show();
+            });
+
+//=================================================
+            <!--点击官网进入前的mask-->
+            $('.mask-close').click(function () {
+                $('.set-mask').hide();
+            });
+        });
+
+
+    </script>
+</head>
+<body>
+<!--点击官网进入前的mask-->
+
+<div class="set-mask">
+
+    <div class="set-mask-pic">
+        <!--<img src="images/mask-show0305.png" alt=""/>-->
+    </div>
+    <div class="mask-close"></div>
+</div>
+
+<!--mask结束 -->
+<div class="top">
+
+    <div class="topnav">
+
+        <a href="#">
+            <div class="logn"></div>
+        </a>
+
+        <ul class="logn-ul">
+            <li>
+                <div class="shu"></div>
+                <a href="main.html"><img src="images/home_hover.png" alt=""/></a></li>
+            <li id="newsB">
+                <div class="shu"></div>
+                <a href="html/information1.html"><img class="news" src="images/newsB.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a id="gameInfo" href="#"><img class="gameinfo" src="images/gameInfo.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a id="gameGuide" href="#"><img class="gameguide" src="images/gameGuide.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a id="topUp" href="#"><img class="topup" src="images/topUp.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a id="service" href="#"><img class="service" src="images/service.png" alt=""/></a></li>
+            <div class="lastshu"></div>
+        </ul>
+        <a href="">
+            <div class="download"></div>
+        </a>
+
+    </div>
+    <div class="hidenav">
+        <div class="middle">
+            <ul>
+                <li class="hide-red"></li>
+                <li><a href="html/information1.html" target="_self">最新情报</a></li>
+                <li><a href="html/news2.html" target="_self">官方新闻</a></li>
+                <li><a href="html/activity3.html" target="_self">最新活动</a></li>
+                <li><a href="html/notice4.html" target="_self">官方公告</a></li>
+                <li><a href="html/medianews5.html" target="_self">媒体新闻</a></li>
+                <li><a class="noactive" href="" target="_self">版本更新笔记</a></li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a class="noactive" href="">客户端下载</a></li>
+                <li><a class="noactive" href="">红莲之狂潮</a></li>
+                <li><a class="noactive" href="">苍穹之禁城</a></li>
+                <li><a class="noactive" href="">重生之境</a></li>
+                <li><a class="noactive" href="">官方壁纸</a></li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a href="index.html">第一次玩最终幻想</a></li>
+                <li><a href="html/deathgame.html">死者宫殿游玩指南</a></li>
+                <li><a href="html/pvpguide.html">PVP指南</a></li>
+                <li><a href="html/forever.html">永结同心指南</a></li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a href="html/login.html">充值时长</a></li>
+                <li><a class="noactive" href="">道具商城</a></li>
+                <li><a href="html/support.html">后勤补给站</a></li>
+                <li><a class="noactive" href="">邀请好友得好礼</a></li>
+                <li><a class="noactive" href="">陆行鸟礼物站</a></li>
+                <li><a class="noactive" href="">积分商城</a></li>
+                </li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a href="html/service-rainbow.html">彩虹客服</a></li>
+                <li><a href="html/service-weichat.html">微信客服</a></li>
+                <li><a href="html/questionnaire.html">意见反馈</a></li>
+                <li><a class="noactive" href="">用户协议</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="">
+        <video autoplay="autoplay" loop="loop" class="videoBtn videoHeader pa">
+            <source src="http://static.sdg-china.com/jijiamobile/pic/ff14/web7/header.webm" type="video/webm">
+            <source src="http://static.sdg-china.com/jijiamobile/pic/ff14/web7/header.mp4" type="video/mp4">
+        </video>
+        <img id="slogan" src="images/slogan.png" alt=""/>
+        <img id="headerImg" src="images/headerCon_videoImg.png" alt=""/>
+        <img id="headerCv" src="images/headerCon_videoBg.png" alt=""/>
+
+        <a id="slogana" href=""><img id="version" src="images/versions.png" alt=""/></a>
+        <a href=""><img id="version_hover" src="images/versions_hover.png" alt=""/></a>
+    </div>
+</div>
+
+<div class="middle-content container">
+    <div class="mid-con-left">
+        <div class="mid-con-left-top">
+            <div class="outer">
+                <!--内部盒子-->
+                <div class="inner">
+                    <!--图片-->
+                    <ul id="imgs">
+                        <li><img src="images/15173986339069.jpg" alt=""/></li>
+                        <li><img src="images/15184232561553.jpg" alt=""/></li>
+                        <li><img src="images/15184384653827.jpg" alt=""/></li>
+                        <li><img src="images/15198926161338.png" alt=""/></li>
+                        <li><img src="images/15198868198328.jpg" alt=""/></li>
+
+                    </ul>
+                    <!--小方块-->
+                    <ol class="inner-ol">
+                        <li class="current"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ol>
+                    <div id="arr">
+                        <img id="left" src="images/lunLeft.png" alt=""/>
+                        <img id="right" src="images/lunRight.png" alt=""/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--<div class="mid-con-left-bottom"></div>-->
+        <!--手风琴部分-->
+        <div class="mid-con-left-downLoad clearfix">
+            <ul>
+                <li><a href=""><img src="images/download1.png" alt=""/></a></li>
+                <li><a href=""><img src="images/download2.png" alt=""/></a></li>
+                <li><a href=""><img src="images/download3.png" alt=""/></a></li>
+            </ul>
+
+        </div>
+        <!--新闻列表-->
+        <div class="newsList">
+            <!--新问列表头部导航-->
+            <div class="listNav">
+                <h2 class="list-title">最新资讯</h2>
+                <ul>
+                    <li class="zh"><a href="">综合</a></li>
+                    <li class="xw"><a href="">新闻</a></li>
+                    <li class="hd"><a href="">活动</a></li>
+                    <li class="gg"><a href="">公告</a></li>
+                    <li class="mt"><a href="">媒体</a></li>
+                    <li class="m"><a href=""></a></li>
+                </ul>
+
+
+            </div>
+            <!--新闻列表内容-->
+            <div class="listContent">
+                <!--选项卡内容 已修改-->
+                <!--===================================================-->
+                <ul>
+                    <li class="listContent-first"><a href="">
+                        <img src="images/15198914704925.jpg" alt=""/>
+
+                        <div class="listContent-first-news">
+                            <span class="span1">Live特别篇：全民围观绝巴哈！3月3日上演！</span>
+                            <br/>
+                            <br/>
+                            <span class="span2">在本次直播中，项目总监丝瓜卡夫卡和豆油油将随机拜访在B站直播的绝巴哈攻略直播团队并随机赠送Bilibili小电视！具体活动规则>>></span>
+                        </div>
+                    </a></li>
+                    <li class="liTwo">
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">艾欧泽亚摄影站第七期开催！萌宠之王！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">【季节活动】降神节——忠犬、猛犬、在海都的大乱斗？！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">一元复始，万象更新！2018新春活动特集！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">八方来财！道具商城新春优惠券大派送！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">副本竞速赛决赛结果出炉！「明明队」荣获首届冠军！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <ul>
+                    <li class="listContent-first"><a href="">
+                        <img src="images/15202354011023.png" alt=""/>
+
+                        <div class="listContent-first-news">
+                            <span class="span1">LIVE直播第37弹！3月9日晚7点上演！</span>
+                            <br/>
+                            <br/>
+                            <span class="span2">在本次直播中，项目总监丝瓜卡夫卡将为您带来
+                                4.15版本的内容前瞻以及更新时间披露！同时丝瓜卡夫卡还会在直播
+                                间挑战狼域水上竞技场-群狼盛宴（8对8/练习赛），欢迎...</span>
+                        </div>
+                    </a></li>
+                    <li class="liTwo">
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">艾欧泽亚摄影站第七期开催！萌宠之王！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">【季节活动】降神节——忠犬、猛犬、在海都的大乱斗？！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">一元复始，万象更新！2018新春活动特集！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">八方来财！道具商城新春优惠券大派送！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">副本竞速赛决赛结果出炉！「明明队」荣获首届冠军！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <ul>
+                    <li class="listContent-first"><a href="">
+                        <img src="images/15198914704925.jpg" alt=""/>
+
+                        <div class="listContent-first-news">
+                            <span class="span1">【季节活动】女儿节•「小黄莺」再次现身乌尔达哈！ </span>
+                            <br/>
+                            <br/>
+                            <span class="span2">为所有女孩而生的女儿节即将来临！还记得新生代明星「小黄莺」
+                                的精彩公演吗？乌尔达哈秘银之眼的记者想要向冒险者打听些事情，来帮助管家之王
+                                完成这次公演吧！</span>
+                        </div>
+                    </a></li>
+                    <li class="liTwo">
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">艾欧泽亚摄影站第七期开催！萌宠之王！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">【季节活动】降神节——忠犬、猛犬、在海都的大乱斗？！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">一元复始，万象更新！2018新春活动特集！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">八方来财！道具商城新春优惠券大派送！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">副本竞速赛决赛结果出炉！「明明队」荣获首届冠军！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <ul>
+                    <li class="listContent-first"><a href="">
+                        <img src="images/15181719752271.jpg" alt=""/>
+
+                        <div class="listContent-first-news">
+                            <span class="span1">陆行鸟礼物站累积月份数计算条件调整公告</span>
+                            <br/>
+                            <br/>
+                            <span class="span2"> 陆行鸟礼物站累积月份数计算条件将进行调整。即日起，
+                                充值月卡或消耗点卡时长满足累计条件就可领取陆行鸟礼物站奖励。具体请查看细则。</span>
+                        </div>
+                    </a></li>
+                    <li class="liTwo">
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">艾欧泽亚摄影站第七期开催！萌宠之王！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">【季节活动】降神节——忠犬、猛犬、在海都的大乱斗？！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">一元复始，万象更新！2018新春活动特集！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">八方来财！道具商城新春优惠券大派送！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">副本竞速赛决赛结果出炉！「明明队」荣获首届冠军！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <ul>
+                    <li class="listContent-first"><a href="">
+                        <img src="images/15151240808720.jpg" alt=""/>
+
+                        <div class="listContent-first-news">
+                            <span class="span1">【游民星空】玩儿趣奖投票 为FF14加油！</span>
+                            <br/>
+                            <br/>
+                            <span class="span2">游民星空玩儿趣奖投票，为最终幻想
+                                14投出宝贵的一票吧！【年度网游最佳版本更新】需要您的支持！</span>
+                        </div>
+                    </a></li>
+                    <li class="liTwo">
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">艾欧泽亚摄影站第七期开催！萌宠之王！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">【季节活动】降神节——忠犬、猛犬、在海都的大乱斗？！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">一元复始，万象更新！2018新春活动特集！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">八方来财！道具商城新春优惠券大派送！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="tit">活动</span>
+                            <span class="con">副本竞速赛决赛结果出炉！「明明队」荣获首届冠军！</span>
+                            <span class="tim">2018/2/28</span>
+                        </a>
+                    </li>
+
+                </ul>
+                <!--=============================================================-->
+            </div>
+
+
+            <!--新闻列表活动-->
+            <div class="listActivity">
+                <ul>
+                    <li>
+                        <a href="" class="tit">【季节活动】女儿节•「小黄莺」再次现身乌尔达哈！</a>
+                        <span class="tim">2018/03/01</span>
+                        <a href=""><img src="images/15198937091012.jpg" alt=""/></a>
+
+                        <p class="con">为所有女孩而生的女儿节即将来临！还记得新生代明星「小黄莺」的精彩公演吗？
+                            乌尔达哈秘银之眼的记者想要向冒险者打听些事情，来帮助管家之王完成
+                            这次公演吧！活动时间：2018年3月6日14:00 -2018年3月20日 14:00</p>
+                        <a href="" class="seeBtn"></a>
+                    </li>
+                    <li>
+                        <a href="" class="tit">缔结冒险旅途的契约 最终幻想14平安由你卡即将上线！</a>
+                        <span class="tim">2018/03/01</span>
+                        <a href=""><img id="listActivityImg2" src="images/15173992821697.jpg" alt=""/></a>
+
+                        <p class="con">来缔结信用的契约吧！与全世界的冒险者一起，将冒险的印记铭刻在这张
+                            纪念信用卡上。最终幻想14联手平安银行推出纪念信用卡。
+                            最终幻想14平安由你信用卡耀世而生。</p>
+                        <a href="" class="seeBtn"></a>
+                    </li>
+                </ul>
+
+
+            </div>
+            <!--新闻列表更多-->
+            <div class="listMore">
+                <a href="">查看更多
+                    <span>最新资讯</span>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="mid-con-right">
+        <div class="mid-con-top-erwei">
+            <a href="#" class="luntan"></a>
+            <a href="#" class="weibo"></a>
+            <a href="#" class="weixin"></a>
+            <a href="#" class="erweima"><img src="" alt=""/></a>
+
+        </div>
+        <div class="mid-con-bot-animate">
+            <div class="mid-right-animate ani1">
+                <img class="img-l" src="images/playerNewsImg.png" alt=""/>
+                <img class="text-l" src="images/playerNews_text.png" alt=""/>
+                <img class="btn-l" src="images/playGoBtn.png" alt=""/>
+            </div>
+            <div class="mid-right-animate ani2">
+                <img class="btn-r" src="images/playGoBtn.png" alt=""/>
+                <img class="text-r" src="images/playerOld_text.png" alt=""/>
+                <img class="img-r" src="images/playerOldImg.png" alt=""/>
+            </div>
+            <div class="mid-right-animate ani3">
+                <img class="img-l" src="images/playerGuideImg.png" alt=""/>
+                <img class="text-l" src="images/playerGuide_text.png" alt=""/>
+            </div>
+            <div class="mid-right-animate ani4">
+                <img class="text-r" src="images/playerProfessional_text.png" alt=""/>
+                <img class="img-r" src="images/playerProfessionalImg.png" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="middle-content-player container">
+    <div>
+        <div class="mid-con-player-left"></div>
+        <div class="mid-con-player-right">
+            <img id="player-chat" src="images/bbs_title.jpg" alt=""/>
+            <a href="">
+                <div>
+                    <img src="images/CoEp_FljfX-AdGS1AAC99Wa8b7U409_S.jpg" alt=""/>
+                    <span class="spantop">三月官方论坛活动 每日心情记录帖</span>
+                    <span class="spanmiddle">2018/03/01</span>
+                </div>
+            </a>
+            <a href="">
+                <div>
+                    <img src="images/CoEp_FlSdbiAT5WQAAAX7_adSwU150_S.jpg" alt=""/>
+                    <span class="spantop">【装修者联盟大奖赛】装修风格投票&战队起名&海选报名活动合集</span>
+                    <span class="spanmiddle">2018/02/26</span>
+                    <span class="spanbottom">想要了解详情，请点击查看更多！</span>
+                </div>
+            </a>
+            <a href="">
+                <div>
+                    <img src="images/CoEp_FmUTRSAFUAmAADP4DJpU0s720_S.jpg" alt=""/>
+                    <span class="spantop">二月官方论坛活动 每日心情记录帖</span>
+                    <span class="spanmiddle">2018/02/01</span>
+                </div>
+            </a>
+            <a href="">
+                <div>
+                    <img src="images/CoEp_Fo3YsuAeXSzAAA8FPFkkjE527_S.jpg" alt=""/>
+                    <span class="spantop">【三月官方论坛活动】 踏青感受艾欧泽亚春之美景</span>
+                    <span class="spanmiddle">2018/03/01</span>
+                    <span class="spanbottom">想要了解详情，请点击查看更多！</span>
+                </div>
+            </a>
+            <a href="">
+                <div>
+                    <img src="images/CoEp_Fozl5WABwweAACGwoMAMyI965_S.jpg" alt=""/>
+                    <span class="spantop">三月官方论坛活动  我的小分队！出击！！！</span>
+                    <span class="spanmiddle">2018/03/01</span>
+                </div>
+            </a>
+            <a href="">
+                <div>
+                    <img src="images/CoEp_ViYU1uARuSMAACIVNtxr4Q025_S.jpg" alt=""/>
+                    <span class="spantop">最近我游大火，欢迎各位小伙伴加入这个妙趣横生的世界。</span>
+                    <span class="spanmiddle">2017/12/17</span>
+                    <span class="spanbottom">首先，这个游戏是非常膨大的一个游戏，萌新进来请一定有耐心，不久你就会发现这个游戏......</span>
+                </div>
+            </a>
+            <a href="">
+                <div>
+                    <img src="images/CoEp_VnuDmiAFGPrAAEZLtKuyfY035_S.jpg" alt=""/>
+                    <span class="spantop">【外观交流向】拉拉肥外观交流特供！！</span>
+                    <span class="spanmiddle">2017/08/24</span>
+                    <span class="spanbottom">一楼菜单镇楼图（误）
+♪前言：从2.0一直到即将来的4.0，作为一个吃了三次幻想......</span>
+                </div>
+            </a>
+            <!--<a href="">-->
+            <!--<div>-->
+            <!--<img src="images/CoEp_VofXICAOPf8AAC5hYkg7oE113_S.jpg" alt=""/>-->
+            <!--<span class="spantop">森七记录仪 / 个人作品分享向</span>-->
+            <!--<span class="spanmiddle">2017/09/13</span>-->
+            <!--<span class="spanbottom">一楼菜单镇楼图（误）-->
+
+            <!--开个楼放置自己一些截图和后期的作品个人主页：http://rilakmus......</span>-->
+            <!--</div>-->
+            <!--</a>-->
+            <a class="lookmore" href="#">查看更多></a>
+
+            <div class="healthgame">
+                <img src="images/2018-03-05_234839.png" alt=""/>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="bottom-image-eight container">
+    <a href="html/deathgame.html"><img src="images/bottom_banner1.jpg" alt=""/></a>
+    <a href="html/pvpguide2.html"><img src="images/bottom_banner2.jpg" alt=""/></a>
+    <a href="html/forever.html"><img src="images/bottom_banner3.jpg" alt=""/></a>
+    <a href="#"><img src="images/bottom_banner4.jpg" alt=""/></a>
+    <a href="#"><img src="images/bottom_banner5.jpg" alt=""/></a>
+    <a href="#"><img src="images/bottom_banner6.jpg" alt=""/></a>
+    <a href="#"><img src="images/bottom_banner7.jpg" alt=""/></a>
+    <a href="#"><img src="images/bottom_banner8.jpg" alt=""/></a>
+
+</div>
+
+<div class="bottom">
+    <div class="footer container">
+        <!--//logo部分-->
+        <div>
+            <a href="#" class="f-logo"></a>
+        </div>
+
+        <div class="f-center">
+            <p>互联网出版许可证 ： 新出网证（沪）字026号&emsp;&emsp;&emsp;增值电信业务经营许可证：沪 B2-20100008</p>
+
+            <p>网络文化经营许可证：沪网文（2017）8902-675号 &emsp;&emsp; 沪ICP备14052292号-2</p>
+
+            <p>上海数龙科技有限公司 版权所有&emsp;|&emsp;隐私政策&emsp;&emsp;&emsp; <a href="#">沪公网安备 31011502007143号</a></p>
+
+            <p>上海市浦东新区海趣路58号海趣园1号楼 021-50504740 &emsp; <span>适龄提示：适合12岁以上使用</span></p>
+
+            <p>盛大游戏®商标是上海盛大网络发展有限公司拥有且授权给上海数龙科技有限公司使用的注册商标。</p>
+
+            <p>上海数龙科技有限公司对其运营行为独立承担全部责任</p>
+        </div>
+
+        <div class="f-business">
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+body {
+    background-color: black;
+    background-image: url("../img/12/base_body.png");
+    background-repeat: no-repeat;
+}
+html {
+    background-color: black;
+}
+/*最后要去掉的高度 测试用*/
+.big_box {
+    height: 985px !important;
+    /*background-color: black;*/
+
+}
+
+.nav {
+    position: fixed ;
+    left:50% ;
+    z-index: 999;
+    margin-left: -480px ;
+}
+.nav .nav_top {
+    position: absolute;
+    top: 4px;
+    left: 13px;
+}
+.nav .nav_bottom ul{
+    position: absolute;
+    width: 960px;
+    height: 44px;
+    overflow: hidden;
+    top: 57px;
+    left: 1px;
+
+
+}
+.nav .nav_bottom ul li{
+    float: left;
+    margin-top: -45px;
+
+}
+.nav .nav_bottom ul li img {
+    width: 160px;
+    height: 88px;
+}
+.banner_center{
+    position: relative;
+    cursor: pointer;
+}
+.banner_center .center_img .up_banner{
+    position: absolute;
+    top: 133px;
+    left: 195px;
+
+}
+.banner_center .center_img .mid_banner{
+    position: absolute;
+    top: 150px;
+
+}
+.banner_center .center_img .down_banner{
+    position: absolute;
+    top: 200px;
+}
+.banner_center .center_font {
+    position: absolute;
+    top: 274px;
+    left: 430px;
+}
+.banner_center .bottom_font {
+    position: absolute;
+    top:437px;
+    left:406px;
+}
+.banner_center .bottom_font p {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: '微软雅黑';
+    font-weight: 700;
+}
+.banner_center .bottom_font .bottom_font_top{
+    margin-left: 24px;
+    margin-bottom: 15px;
+
+}
+
+/*左边动画*/
+.big_box .banner_left #left_animate1 {
+    background-image: url("../img/12/crystal_01.png");
+    background-repeat: repeat-y;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 480px;
+    height: 1000px;
+}
+.big_box .banner_left #left_animate2 {
+    background-image: url("../img/12/crystal_02.png");
+    background-repeat: repeat-y;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 480px;
+    height: 1000px;
+}
+.big_box .banner_left #left_animate3 {
+    background-image: url("../img/12/crystal_03.png");
+    background-repeat: repeat-y;
+    position: absolute;
+    top: 0px;
+    left: 41px;
+    width: 280px;
+    height: 1000px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*底部导航*/
+.foot_nav {
+    width: 955px;
+    height: 73px;
+    background-image: url("../img/12/bg.png");
+    background-repeat: no-repeat;
+    position: fixed;
+    bottom:0;
+    left:50%;
+    margin-left: -477px;
+}
+.foot_nav ul {
+    position: absolute;
+    left: 162px;
+    top: 26px;
+    height: 43px;
+    overflow: hidden;
+    
+}
+.foot_nav ul li{
+    float: left;
+    margin-top: -43px;
+}
+
+.center_img{
+    width:100%;
+    overflow: hidden;
+    position: relative;
+    height: 600px;
+}
+
+
+
+
+

@@ -1,0 +1,45 @@
+/*css样式初始化*/
+body,p,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6 {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	font-size: 16px;
+	color: #abb0b5;
+	font-family: "宋体";
+}
+
+.container {
+	width: 930px;
+	margin: 0 auto;
+}
+
+a {
+	color: #abb0b5;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #abb0b5;
+}
+
+img,input {
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	outline-style: none;
+	vertical-align: middle;
+
+}
+
+.clearfix::after {
+	content: "";
+	height: 0;
+	line-height: 0;
+	display: block;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix {
+	zoom: 1;
+}
+

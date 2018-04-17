@@ -1,0 +1,69 @@
+if (typeof(window.console) == "undefined") { console = {}; console.log = console.warn = console.error = function(a) {}; }
+jQuery.ajaxSettings.traditional = true;
+f_pass=true;
+// for no-cache
+$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
+	if(originalOptions.type.toLowerCase() == 'post'){
+		options.data = jQuery.param($.extend(originalOptions.data||{}, {
+			'__timestamp': new Date().getTime()
+		}));
+	}
+});
+
+var Lodestone = {
+	init: false,
+	init_for_el_txn_flg: false,
+	vars: {},
+	fn: {},
+    show_init_for_el_plugins: [],
+    init_for_el_plugins: [],
+	txn_after_init_for_el_plugins: [],
+	init_at_page: function() {
+		if ( !Lodestone.vars.feast_ranking ) {
+			// feast rankingのpopup回避のため
+			window.name = '';
+		}
+		Lodestone.init_for_el($('body'));
+		Lodestone.init = true;
+	},
+    add_show_init_for_el_plugin: function(fn) {
+        Lodestone.show_init_for_el_plugins.push(fn);
+    },
+    add_init_for_el_plugin: function(fn) {
+		if ( Lodestone.init_for_el_txn_flg ) {
+			Lodestone.txn_after_init_for_el_plugins.push(fn);
+		}
+		else {
+			Lodestone.init_for_el_plugins.push(fn);
+			if ( Lodestone.init ) {
+				fn($('body'));
+			}
+		}
+    },
+    init_for_el: function($el) {
+        $.each(Lodestone.init_for_el_plugins, function(i, fn) {
+            fn($el);
+        });
+
+		Lodestone.show_init_for_el($el);
+    },
+    init_for_el_txn: function($el, callback) {
+		Lodestone.init_for_el_txn_flg = true;
+		callback();
+		Lodestone.init_for_el($el);
+		Lodestone.init_for_el_txn_flg = false;
+		var $body = $('body');
+        $.each(Lodestone.txn_after_init_for_el_plugins, function(i, fn) {
+			Lodestone.init_for_el_plugins.push(fn);
+			fn($body);
+        });
+    },
+    show_init_for_el: function($el) {
+        $.each(Lodestone.show_init_for_el_plugins, function(i, fn) {
+            fn($el);
+        });
+	}
+};
+
+jQuery(Lodestone.init_at_page);
+

@@ -1,0 +1,104 @@
+;
+String.prototype.escapeHTML = function(){
+	return this
+		.replace(/&/g,'&amp;')
+		.replace(/</g,'&lt;')
+		.replace(/>/g,'&gt;')
+		.replace(/\"/g,'&quot;')
+		.replace(/\'/g,'&#39;')
+	;
+};
+String.prototype.n2br = function(){
+	return this.escapeHTML().replace( /\n/g, '<br />' );
+};
+Array.prototype.serializeObject = function(){
+	var object = {};
+	$.each(this, function() {
+		if ( object[this.name] ) {
+			if ( !$.isArray(object[this.name]) ) {
+				object[this.name] = [object[this.name]];
+			}
+			object[this.name].push(this.value || '');
+		}
+		else {
+			object[this.name] = this.value || '';
+		}
+	});
+	return object;
+};
+
+Date.prototype.sameYMD = function(target) {
+	return (
+		this.getFullYear() === target.getFullYear()
+		&& this.getMonth() === target.getMonth()
+		&& this.getDate() === target.getDate()
+	);
+};
+
+/*-------------------------------------------------------------------------
+ * htmlEscape function
+ * ------------------------------------------------------------------------ */
+htmlEscape = function(s) {
+	return typeof(s) === "undefined" ? "" : typeof(s) === "string" ?
+		s.escapeHTML() :
+		s && s.toString().escapeHTML();
+};
+
+function silent_reload() {
+	if ( location.href.match('#') ) {
+		// #入の場合のreloadは本当のreload
+		location.reload();
+	}
+	else {
+		// それ以外はreplaceで履歴に残さずreload
+		location.replace(location.href);
+	}
+}
+
+function ldst_ajax_page(page) {
+	console.log(this);
+}
+
+function limit_num(val) {
+	if ( isNaN(val) ) {
+		return 0;
+	}
+	val = parseInt(val);
+	if ( isNaN(val) ) {
+		return 0;
+	}
+	return val;
+}
+
+function get_cal_rows(target) {
+	var rows = [];
+	var cols = [];
+
+	var first = new Date(target.getFullYear(), target.getMonth(), 1);
+	var last  = new Date(target.getFullYear(), target.getMonth() + 1, 0);
+
+	var day_of_week_pos = first.getDay() == 0 ? 6 : first.getDay() - 1;
+
+	for ( var i = 1; i <= day_of_week_pos; i++ ) {
+		cols.push(undefined);
+	}
+	for ( var day = 1; day <= last.getDate(); day++ ) {
+		if ( day_of_week_pos % 7 == 0 ) {
+			rows.push(cols.concat());
+			cols = [];
+		}
+		cols.push({
+			day: day
+		});
+		day_of_week_pos++;
+	}
+	day_of_week_pos--;
+	if ( day_of_week_pos % 7 != 6 )  {
+		for ( var i = 1; i <= (6 - (day_of_week_pos % 7)); i++ ){
+			cols.push(undefined);
+		}
+	}
+	rows.push(cols.concat());
+	return rows;
+}
+

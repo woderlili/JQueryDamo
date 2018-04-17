@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <base target="_blank">
+    <link rel="stylesheet" href="../css/base-yc.css">
+    <link rel="stylesheet" href="../css/index-yc2.css">
+    <script src="../js/jquery-1.12.1.js"></script>
+    <script>
+        window.onload = function () {
+            // 隐藏导航移入移出
+            var loginul = document.getElementsByClassName('logn-ul')[0];
+            var hidenav = document.getElementsByClassName('hidenav')[0];
+            loginul.onmouseover = function () {
+                hidenav.style.display = 'block';
+            }
+            loginul.onmouseout = function () {
+                hidenav.style.display = 'none';
+            }
+            hidenav.onmouseover = function () {
+                hidenav.style.display = 'block';
+            }
+            hidenav.onmouseout = function () {
+                hidenav.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+<!--头部-->
+<!--<div class="box">-->
+<!--<div class="head">-->
+<!--<img src="images/logo.png" alt=""/>-->
+<!--</div>-->
+<!--<div class="content">-->
+<!--<ul class="content1">-->
+<!--<li>|&nbsp&nbsp&nbsp<span>官网首页</span></li>-->
+<!--<li>|&nbsp&nbsp&nbsp<span>新闻中心</span></li>-->
+<!--<li>|&nbsp&nbsp&nbsp<span>游戏资料</span></li>-->
+<!--<li>|&nbsp&nbsp&nbsp<span>游戏指南</span></li>-->
+<!--<li>|&nbsp&nbsp&nbsp<span>充值购买</span></li>-->
+<!--<li>|&nbsp&nbsp&nbsp<span>客户服务</span></li>-->
+<!--<li>|</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div class="top">
+    <div class="topnav">
+        <a href="../main.html">
+            <div class="logn"></div>
+        </a>
+        <ul class="logn-ul">
+            <li>
+                <div class="shu"></div>
+                <a href="../main.html"><img src="../images/home_hover.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a href="information1.html"><img class="news" src="../images/newsB.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a href="#"><img class="gameinfo" src="../images/gameInfo.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a href="#"><img class="gameguide" src="../images/gameGuide.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a href="#"><img class="topup" src="../images/topUp.png" alt=""/></a></li>
+            <li>
+                <div class="shu"></div>
+                <a href="#"><img class="service" src="../images/service.png" alt=""/></a></li>
+            <div class="lastshu"></div>
+        </ul>
+        <div class="download"></div>
+    </div>
+    <div class="hidenav">
+        <div class="middle">
+            <ul>
+                <li class="hide-red"></li>
+                <li><a href="information1.html">最新情报</a></li>
+                <li><a href="news2.html">官方新闻</a></li>
+                <li><a href="activity3.html">最新活动</a></li>
+                <li><a href="notice4.html">官方公告</a></li>
+                <li><a href="medianews5.html">媒体新闻</a></li>
+                <li><a class="noactive" href="">版本更新笔记</a></li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a class="noactive" href="">客户端下载</a></li>
+                <li><a class="noactive" href="">红莲之狂潮</a></li>
+                <li><a class="noactive" href="">苍穹之禁城</a></li>
+                <li><a class="noactive" href="">重生之境</a></li>
+                <li><a class="noactive" href="">官方壁纸</a></li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a href="../index.html">第一次玩最终幻想</a></li>
+                <li><a href="deathgame.html">死者宫殿游玩指南</a></li>
+                <li><a href="pvpguide.html">PVP指南</a></li>
+                <li><a href="forever.html">永结同心指南</a></li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a href="login.html">充值时长</a></li>
+                <li><a class="noactive" href="">道具商城</a></li>
+                <li><a href="support.html">后勤补给站</a></li>
+                <li><a class="noactive" href="">邀请好友得好礼</a></li>
+                <li><a class="noactive" href="">陆行鸟礼物站</a></li>
+                <li><a class="noactive" href="">积分商城</a></li>
+                </li>
+            </ul>
+            <ul>
+                <li></li>
+                <li><a href="service-rainbow.html">彩虹客服</a></li>
+                <li><a href="service-weichat.html">微信客服</a></li>
+                <li><a href="questionnaire.html">意见反馈</a></li>
+                <li><a class="noactive" href="">用户协议</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="">
+        <img id="slogan" src="../images/slogan.png" alt=""/>
+        <img id="headerImg" src="../images/headerCon_videoImg.png" alt=""/>
+        <img id="headerCv" src="../images/headerCon_videoBg.png" alt=""/>
+
+        <a id="slogana" href=""><img id="version" src="../images/versions.png" alt=""/></a>
+        <a href=""><img id="version_hover" src="../images/versions_hover.png" alt=""/></a>
+    </div>
+</div>
+
+
+
+
+
+<!--导航部分-->
+<!--<div class="nav">-->
+<!--<div class="nav1">在集结！一起新的冒险!</div>-->
+<!--<img src="images/QQ图片20180302151402.png" alt="" class="img1"/>-->
+<!--<img src="images/QQ图片20180302154441.png" alt="" class="img2"/>-->
+<!--<div class="nav2">*适龄提示：适合全年龄段</div>-->
+<!--</div>-->
+<!--<div>-->
+<!--<img src="images/QQ图片20180302161126.png" alt="" class="img3"/>-->
+<!--</div>-->
+
+
+
+
+<!--下面那个-->
+<div class="shouye w">
+    <a href="#">首页</a>
+    <span>></span>
+    <a href="#">新闻中心</a>
+</div>
+
+<!--新闻中心内容-->
+<div class="dadiv w">
+    <div class="zuodiv">
+        <div class="heiheihei">
+            <ul class="ul1">
+                <li><a href="information1.html">最新</a></li>
+                <li class="li2"><a href="news2.html">新闻</a></li>
+                <li><a href="activity3.html">活动</a></li>
+                <li><a href="notice4.html">公告</a></li>
+                <li><a href="medianews5.html">媒体</a></li>
+            </ul>
+        </div>
+        <div class="hahaha">
+            <ul>
+                <li class="li1">
+                    <img src="../images/图片4.png" alt=""/>
+                    <span class="diyispan"> &nbsp;&nbsp;&nbsp;&nbsp;《最终幻想14》2月26日违规账号处罚公告 </span><br>
+                    <!--<span class="dierspan">为所有女孩而生的女儿节即将来临！还记得新生代明星「小黄莺」的精彩公演吗？乌尔达哈秘银之眼的记者想要向冒险者打听些事情，来帮助管家之王完成这次......</span>-->
+
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>【活动】</span>
+                        <span>【艾欧泽亚摄影站第七期开催！萌宠之王！】</span>
+                        <span class="span1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2018/02/12</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="gagaga">
+            <a href="#" class="xiayiye"><span>下一页</span></a>
+            <a href="#" class="weiye"><span>尾页</span></a>
+            <span class="xiala">
+                <select name="" id="sel">
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                </select>
+                <span>/10</span>
+            </span>
+        </div>
+    </div>
+    <div class="youdiv">
+        <div class="tupian">
+            <a href="#" class="luntan"></a>
+            <a href="#" class="weibo"></a>
+            <a href="#" class="weixin"></a>
+            <a href="#" class="erweima"><img src="" alt=""/></a>
+        </div>
+        <div class="xiatupian">
+            <a href="#"><img src="../images/news_playerWallpapersImg.jpg" alt=""/></a><br>
+            <a href="#"><img src="../images/news_playerProfessionalImg.jpg" alt=""/></a><br>
+            <a href="#"><img src="../images/news_playerGuideImg.jpg" alt=""/></a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

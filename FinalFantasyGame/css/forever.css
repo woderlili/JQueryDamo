@@ -1,0 +1,107 @@
+body {
+    background: url("../images/bg%20(1).jpg") no-repeat center 0px;
+
+}
+
+  .w {
+      position: relative;
+  }
+
+.w>.logo>img {
+    position: absolute;
+    left: 30px;
+    margin-top: 20px;
+
+  }
+
+.ulbox {
+    width: 1000px;
+    height: 78px;
+    position: absolute;
+    top: 210px;
+    left: -165px;
+}
+
+.ulbox>ul>li {
+   float: left;
+    height: 40px;
+    width: 247px;
+}
+.ulbox>ul>li>a {
+    display: block;
+    height: 40px;
+    width: 247px;
+}
+
+.ulbox>ul>.l1 {
+    background: url("../images/shouye.png") no-repeat;
+
+}
+  .ulbox>ul>.l1:hover {
+      background-position: 0px -40px;
+  }
+
+  .ulbox>ul>.l2 {
+    background: url("../images/what.png") no-repeat;
+}
+  .ulbox>ul>.l2:hover {
+      background-position: 0px -40px;
+  }
+
+  .ulbox>ul>.l3 {
+    background: url("../images/huichang.png") no-repeat;
+}
+  .ulbox>ul>.l3:hover {
+      background-position: 0px -40px;
+  }
+
+  .ulbox>ul>.l4 {
+    background: url("../images/yanchu.png") no-repeat;
+}
+  .ulbox>ul>.l4:hover {
+      background-position: 0px -40px;
+  }
+  .ulbox>ul>.l5 {
+      background: url("../images/daoju.png") no-repeat;
+  }
+  .ulbox>ul>.l5:hover {
+      background-position: 0px -40px;
+  }
+
+  .ulbox>ul>.l6{
+      background: url("../images/shenqing.png") no-repeat;
+  }
+  .ulbox>ul>.l6:hover {
+      background-position: 0px -40px;
+  }
+
+  .ulbox>ul>.l7{
+      background: url("../images/taocan.png")no-repeat;
+  }
+  .ulbox>ul>.l7:hover {
+      background-position: 0px -40px;
+  }
+
+  .ulbox>ul>.l8{
+      background: url("../images/haoyou.png")no-repeat;
+  }
+  .ulbox>ul>.l8:hover {
+      background-position: 0px -40px;
+  }
+
+
+
+  .foot {
+      position: absolute;
+      top: 650px;
+      left: -70px;
+  }
+
+video {
+    position: absolute;
+    top: 308px;
+    left: 50%;
+    margin-left: -300px;
+    width: 600px;
+}
+

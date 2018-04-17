@@ -1,0 +1,113 @@
+/*<!--body背景图 侧边-->*/
+body {
+    width: 100%;
+    height: 100%;
+    background: #000000 url("../images/wrapbg.jpg") no-repeat top center;
+    background-size: auto;
+}
+
+/*顶部调查问卷图片*/
+.q-top {
+    width: 100%;
+    height: 267px;
+    position: relative;
+    left: 50%;
+    margin-left: -514px;
+    top: 0;
+}
+
+/*/!*中间问卷框架*!/    这里改高度*/
+/*.q-content .contain {*/
+    /*width: 1000px;*/
+    /*height: 1200px;*/
+    /*position: relative;*/
+    /*left: 143px;*/
+    /*top: 0;*/
+    /*z-index: 1;*/
+
+/*}*/
+
+.q-content {
+    width: 1000px;
+    height: 1000px;
+    padding-bottom: 100px;
+    background: url("../images/bg_top.jpg") left top;
+    /*overflow: hidden;*/
+    position: relative;
+    left: 161px;
+    top: 0;
+    z-index: 1;
+}
+
+/*问卷内容部分*/
+
+/*内容头部 title*/
+.q-content .q-con-head {
+    width: 496px;
+    height: 48px;
+    color: #a5b2c4;
+    font: 30px/48px 'microsoft yahei';
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -248px;
+}
+
+.q-content .q-con-body {
+    width: 750px;
+    /*height: ;*/
+    padding-top: 15px;
+    padding-bottom: 30px;
+    padding-left: 47px;
+    position: absolute;
+    top: 48px;
+    left: 80px;
+
+}
+
+.q-con-body p {
+    width: 700px;
+    font: 18px 'microsoft yahei';
+    color: #66deff;
+    margin-top: 46px;
+    margin-bottom: 20px;
+}
+
+.q-con-body p span {
+    color: red;
+}
+
+.q-con-body textarea {
+    width: 450px;
+    height: 82px;
+    margin-left: 20px;
+    overflow: auto;
+    resize: none;
+}
+
+.q-con-body select {
+    margin-left: 20px;
+}
+
+.q-con-body .buy {
+    width: 178px;
+    height: 58px;
+    background: url("../images/btnbuy.png") no-repeat left;
+    position: absolute;
+    right: -105px;
+    bottom: -63px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 58px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.b-bottom {
+    width: 1000px;
+    height: 68px;
+    position: absolute;
+    bottom: -0px;
+    left: 0px;
+}
